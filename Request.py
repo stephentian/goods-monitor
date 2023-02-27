@@ -3,10 +3,10 @@ import requests
 # china
 url = "https://api-cn.louisvuitton.cn/api/zhs-cn/catalog/skuavailability/M45647?origin=qubit"
 url1 = "https://api-cn.louisvuitton.cn/api/zhs-cn/catalog/availability/nvprod2440099v"
-url2 = "https://movie.douban.com/j/search_subjects?type=tv&tag=%E7%83%AD%E9%97%A8&page_limit=50&page_start=0"
-url3 = "https://www.baidu.com"
+
 # hongkong(china)
 url3 = "https://api.louisvuitton.com/api/zht-hk/catalog/availability/nvprod2440099v"
+url4 = "https://www.louisvuitton.cn/zhs-cn/products/boite-chapeau-souple-mm-monogram-nvprod2440099v/M45647"
 
 headers = {
     # ':authority': 'api-cn.louisvuitton.cn',
@@ -29,7 +29,7 @@ headers = {
 }
 
 try:
-	s = requests.get(url1, headers=headers, timeout=(3, 7))
+	s = requests.get(url, headers=headers, timeout=(3, 7))
 	print("success")
 except requests.exceptions.RequestException as e:
 	print(e)
