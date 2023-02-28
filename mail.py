@@ -4,20 +4,14 @@ from email.header import Header
 
 
 sender = 'stephentian@foxmail.com'
-# sender1 = '15970948176@139.com'
 receivers = ['745752067@qq.com']
 mail_host = 'smtp.qq.com'
-mail_host1 = 'smtp.139.com'
-
-# mail_msg = """
-# <p>商城脚本 邮件发送测试...</p>
-# <p><a href="https://www.louisvuitton.cn/zhs-cn/products/boite-chapeau-souple-mm-monogram-nvprod2440099v/M45647">快速进入商品链接</a></p>
-# """
 
 mail_msg = """
-<p>测试 商城脚本 邮件发送测试...</p>
-<p></p>
+<p>商城脚本 邮件发送测试...</p>
+<p><a href="https://www.louisvuitton.cn/zhs-cn/products/boite-chapeau-souple-mm-monogram-nvprod2440099v/M45647">快速进入商品链接</a></p>
 """
+
 
 message = MIMEText(mail_msg, 'html', 'utf-8')
 message['From'] = Header('测试', 'utf-8')
@@ -32,7 +26,6 @@ try:
     smtpObj.set_debuglevel(1)
     smtpObj.connect(mail_host)
     # smtpObj.connect(mail_host1, port=465)
-    # smtpObj.login(sender, "cjdikbehqtqtbejd")
     smtpObj.login(sender, "")
     smtpObj.sendmail(sender, receivers, message.as_string())
 
