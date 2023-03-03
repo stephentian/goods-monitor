@@ -1,4 +1,6 @@
 import requests
+import smtplib
+import time
 
 # china
 url = "https://api-cn.louisvuitton.cn/api/zhs-cn/catalog/skuavailability/M45647?origin=qubit"
@@ -28,11 +30,11 @@ headers = {
     'user-agent': "Mozilla/5.0 (Macintosh;Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
 }
 
-try:
-	s = requests.get(url, headers=headers, timeout=(3, 7))
-	print("success")
-except requests.exceptions.RequestException as e:
-	print(e)
+# try:
+# 	s = requests.get(url, headers=headers, timeout=(3, 7))
+# 	print("success")
+# except requests.exceptions.RequestException as e:
+# 	print(e)
 
 # print(s.status_code)
 
@@ -40,6 +42,48 @@ except requests.exceptions.RequestException as e:
 
 # print(s.apparent_encoding)
 
-print(s.text)
+# print("s.json(): ", s.json())
+# print("inStock: ", s.json().get('inStock', False))
 
-print("Hello world!")
+# print("Hello world!")
+
+# 定义邮件内容
+subject = 'Louis Vuitton包包库存状态更新'
+body = '包包的库存已经更新，请尽快购买。'
+
+# 定义发送邮件的函数
+
+
+def send_email():
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(from_addr, password)
+    msg = "Subject: {}\n\n{}".format(subject, body)
+    server.sendmail(from_addr, to_addr, msg)
+    server.quit()
+
+
+# 设置轮询比较频率
+interval = 1 * 60  # 5分钟监控一次
+
+# 开启监控
+while True:
+    # 发起API请求并得到返回的数据
+    response = requests.get(url1)
+    if response.status_code == 200:
+        data = response.json()
+
+        # 提取需要的数据：inStock字段
+        in_stock = data.get('inStock', False)
+
+        print("Hello world!")
+
+        # 如果包包有货，发送邮件通知
+        if in_stock:
+            # send_email()
+            print("Hello world!")
+    else:
+        print("error")
+
+        # 等待一段时间再次请求 API
+        time.sleep(interval)
